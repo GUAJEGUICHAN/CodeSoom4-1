@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Page from './Page';
 
-
 function updateTaskTitle(state, taskTitle) {
   return {
     ...state,
