@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Page from './Page';
 
@@ -34,6 +34,7 @@ function deleteTask(state, id) {
 }
 
 export default function App() {
+  const dispatch = useDispatch();
   const { taskTitle, tasks } = useSelector((state) => ({
     taskTitle: state.taskTitle,
     tasks: state.tasks,
@@ -41,15 +42,18 @@ export default function App() {
   //  const [state, setState] = useState(initialState);
 
   function handleChangeTitle(event) {
-    setState(updateTaskTitle(state, event.target.value));
+    dispatch(updateTaskTitle(state, event.target.value));
+    // 여기서 updateTaskTitle은 액션크리에이터다.
   }
 
   function handleClickAddTask() {
-    setState(addTask(state));
+    dispatch(addTask(state));
+    // 여기서 addTask은 액션크리에이터다.
   }
 
   function handleClickDeleteTask(id) {
-    setState(deleteTask(state, id));
+    dispatch(deleteTask(state, id));
+    // 여기서 deleteTask은 액션크리에이터다.
   }
 
   return (
