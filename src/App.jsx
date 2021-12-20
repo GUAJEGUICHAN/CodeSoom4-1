@@ -24,6 +24,13 @@ function addTask(state) {
     tasks: [...tasks, { id: newId, title: taskTitle }],
   };
 }
+function deleteTask(state, id) {
+  const { tasks } = state;
+  return {
+    ...state,
+    tasks: tasks.filter((task) => task.id !== id),
+  };
+}
 
 export default function App() {
   const [state, setState] = useState(initialState);
@@ -39,10 +46,7 @@ export default function App() {
   }
 
   function handleClickDeleteTask(id) {
-    setState({
-      ...state,
-      tasks: tasks.filter((task) => task.id !== id),
-    });
+    setState(deleteTask(state, id));
   }
 
   return (
