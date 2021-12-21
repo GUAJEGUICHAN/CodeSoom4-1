@@ -6,8 +6,8 @@ import Page from './Page';
 function selector(state) {
   return {
     taskTitle: state.taskTitle,
-    tasks: state.tasks
-  }
+    tasks: state.tasks,
+  };
 }
 
 export default function App() {
