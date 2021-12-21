@@ -33,21 +33,29 @@ export default function App() {
     taskTitle: state.taskTitle,
     tasks: state.tasks,
   }));
-  //  const [state, setState] = useState(initialState);
 
   function handleChangeTitle(event) {
-    dispatch(updateTaskTitle(state, event.target.value));
-    // 여기서 updateTaskTitle은 액션크리에이터다.
+    dispatch({
+      type: 'updateTaskTitle',
+      payload: {
+        taskTitle: event.target.value,
+      },
+    });
   }
 
   function handleClickAddTask() {
-    dispatch(addTask(state));
-    // 여기서 addTask은 액션크리에이터다.
+    dispatch({
+      type: 'addTask',
+    });
   }
 
   function handleClickDeleteTask(id) {
-    dispatch(deleteTask(state, id));
-    // 여기서 deleteTask은 액션크리에이터다.
+    dispatch({
+      type: 'deleteTask',
+      payload: {
+        id,
+      },
+    });
   }
 
   return (
