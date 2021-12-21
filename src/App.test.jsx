@@ -2,6 +2,9 @@ import { fireEvent, render } from '@testing-library/react';
 
 import App from './App';
 
+
+jest.mock('react-redux')
+
 describe('App', () => {
   it('App이 그려진다.', () => {
     const { container } = render(<App />);
