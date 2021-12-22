@@ -3,46 +3,51 @@ import { addTask, deleteTask, updateTaskTitle } from './actions';
 
 describe('reducer', () => {
   describe('updateTaskTitle', () => {
-    it('changes state with new TaskTitle', () => {
-      const state = reducer([], updateTaskTitle('할 일'));
+    function reduceUpdateTaskTitle(taskTitle) {
+      const previouseState = {
+        newId: 100,
+        taskTitle: '',
+        tasks: [],
+      };
 
-      expect(state.taskTitle).toBe('할 일');
+      return reducer(previouseState, updateTaskTitle(taskTitle));
+    }
+    it('changes state with new TaskTitle', () => {
+      const state = reduceUpdateTaskTitle('new Task');
+
+      expect(state.taskTitle).toBe('new Task');
     });
   });
 
   describe('addTask', () => {
+    function reduceAddTask(taskTitle) {
+      const previouseState = {
+        newId: 100,
+        taskTitle,
+        tasks: [],
+      };
+
+      return reducer(previouseState, addTask());
+    }
+
     context('with taskTitle', () => {
       it('appends a new task into tasks', () => {
-        const previouseTask = {
-          newId: 100,
-          taskTitle: 'new Task',
-          tasks: [],
-        };
-        const state = reducer(previouseTask, addTask());
+        const state = reduceAddTask('new Task');
 
         expect(state.tasks).toHaveLength(1);
         expect(state.tasks[0].id).not.toBeUndefined();
         expect(state.tasks[0].title).toBe('new Task');
       });
+
       it('clear taskTitle', () => {
-        const previouseTask = {
-          newId: 100,
-          taskTitle: 'new Task',
-          tasks: [],
-        };
-        const state = reducer(previouseTask, addTask());
+        const state = reduceAddTask('task')
 
         expect(state.taskTitle).toBe('');
       });
     });
     context('without taskTitle', () => {
       it('doenst work', () => {
-        const previouseTask = {
-          newId: 100,
-          taskTitle: '',
-          tasks: [],
-        };
-        const state = reducer(previouseTask, addTask());
+        const state = reduceAddTask('')
 
         expect(state.tasks.length).toBe(0);
       });
@@ -50,36 +55,33 @@ describe('reducer', () => {
   });
 
   describe('deleteTask', () => {
-    context('right key', () => {
-      it('remove a task', () => {
-        const previouseTask = {
-          newId: 100,
-          taskTitle: '',
-          tasks: [{
-            id: 100,
-            title: '가자',
-          }],
-        };
+    function reduceDeleteTask(id) {
+      const previouseState = {
+        newId: 100,
+        taskTitle: '',
+        tasks: [{
+          id: 100,
+          title: '가자',
+        }],
+      };
+
+      return reducer(previouseState, deleteTask(id));
+    }
+
+    context('with right key', () => {
+      it('remove the task from tasks', () => {
         const id = 100;
 
-        const state = reducer(previouseTask, deleteTask(id));
+        const state = reduceDeleteTask(id);
         expect(state.tasks).toHaveLength(0);
       });
     });
 
-    context('worng key', () => {
+    context('with worng key', () => {
       it('doesnt work', () => {
-        const previouseTask = {
-          newId: 100,
-          taskTitle: '',
-          tasks: [{
-            id: 100,
-            title: '가자',
-          }],
-        };
-        const id = 200;
+        const wrongId = 200;
 
-        const state = reducer(previouseTask, deleteTask(id));
+        const state = reduceDeleteTask(wrongId);
         expect(state.tasks).toHaveLength(1);
       });
     });
