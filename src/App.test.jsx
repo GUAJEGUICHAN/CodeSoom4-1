@@ -7,12 +7,13 @@ import App from './App';
 jest.mock('react-redux');
 
 test('App', () => {
-  const tasks = [
-    { id: 100, title: '숨 쉬기' },
-  ];
-  useSelector.mockImplementation((selector) => selector({
-    tasks,
-  }));
+  const state = {
+    taskTitle: '',
+    tasks: [
+      { id: 100, title: '숨 쉬기' },
+    ],
+  };
+  useSelector.mockImplementation((selector) => selector(state));
   const { getByText } = render(<App />);
 
   expect(getByText(/추가/)).not.toBeNull();

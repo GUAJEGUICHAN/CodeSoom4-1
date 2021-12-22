@@ -4,7 +4,7 @@ import Input from './Input';
 
 export default function InputContainer() {
   const { taskTitle } = useSelector((state) => ({
-    taskTitke: state.taskTitle,
+    taskTitle: state.taskTitle,
   }));
   const dispatch = useDispatch();
 
@@ -15,6 +15,7 @@ export default function InputContainer() {
   function handleClickAddTask() {
     dispatch(addTask());
   }
+
   return (
     <Input
       value={taskTitle}
