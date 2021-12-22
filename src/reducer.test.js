@@ -40,14 +40,14 @@ describe('reducer', () => {
       });
 
       it('clear taskTitle', () => {
-        const state = reduceAddTask('task')
+        const state = reduceAddTask('task');
 
         expect(state.taskTitle).toBe('');
       });
     });
     context('without taskTitle', () => {
       it('doenst work', () => {
-        const state = reduceAddTask('')
+        const state = reduceAddTask('');
 
         expect(state.tasks.length).toBe(0);
       });
